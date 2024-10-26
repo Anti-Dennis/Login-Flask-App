@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+    <title>Login</title>
+</head>
+<style>
+    .password-container {
+        position: relative;
+    }
+    .eye-icon {
+        position: absolute;
+        right: 10px;
+        top: 63%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 1.5em;
+        color: gray;
+    }
+    #error-msg {
+        color: red;
+    }
+    /* Align reCAPTCHA in the center */
+    .recaptcha-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    
+</style>
+
+<body>
+    <form id="user-form" class="round-corners" action="/login" method="post">
+        <div class="form-item">
+            <label1>Hello, Welcome Back
+            </label1> </br> </br>
+            <label for="user-email">Email:</label>
+            <input id="user-email" class="form-input round-corners" type="email" name="email" required>
+        </div>
+        <div class="form-item password-container">
+            <label for="user-password">Password:</label>
+            <input id="user-password" class="form-input round-corners" type="password" name="password" required>
+            <span id="toggle-password-visibility" onclick="togglePasswordVisibility('user-password', 'toggle-password-visibility')" class="eye-icon3">
+                👁️
+                <script>
+                // Toggle Password Visibility
+                function togglePasswordVisibility(passwordFieldId, toggleIconId) {
+                    const passwordField = document.getElementById(passwordFieldId);
+                    const toggleIcon = document.getElementById(toggleIconId);
+        
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        toggleIcon.textContent = '👀'; // Closed-eye icon
+                    } else {
+                        passwordField.type = 'password';
+                        toggleIcon.textContent = '👁️'; // Open-eye icon
+                    }
+                }
+            </script>
+            </span>
+        </div>
+        <div class="form-item">
+            <input type="checkbox" id="remember-me" name="remember-me">
+            <label for="remember-me">Remember me</label>
+        </div>
+        
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <div class="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6Le2WGIqAAAAANSM_87bH9Hy9oEI83JM2lcEAaid"></div>
+        </div>
+
+        {% if error %}<p id="error-msg">{{ error }}</p>{% endif %}
+
+        <input id="form-submit" class="form-item round-corners" type="submit" value="Login">
+
+        <div id="switch-form">
+            <p>Don't have an account? <a class="text-link" href="/register">Register</a></p>
+        </div>
+    </form>
+</body>
+</html>

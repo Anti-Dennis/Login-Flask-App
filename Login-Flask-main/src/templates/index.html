@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.bgimg {
+  background-image: url('https://www.nytransitmuseum.org/wp-content/uploads/revslider/slide2-2048x1152.jpg');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.topright {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.middlebot .text-link {
+    position: absolute;
+    top: 95%;
+    left: 47%;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
+    color: black;
+}
+
+
+hr {
+  margin: auto;
+  width: 40%;
+}
+</style>
+<body>
+
+<div class="bgimg">
+  <div class="topleft">
+    <p>Swan Htet Lin(DENNIS)</p>
+  </div>
+  <div class="middle">
+    <h1>Welcome/မင်္ဂလာပါ/你好</h1>
+  </div>
+  <div class="topright">
+    <img src="{{ url_for('static', filename='images/BUC.png') }}" width="100" height="100" class="image" alt="British University College Logo">
+</div>
+<div class="middlebot">
+    <a class="text-link" href="/logout">Logout</a>
+  </div>
+
+
+
+</div>
+
+</body>
+</html>

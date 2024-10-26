@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <!--Stylesheet-->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Password Strength Bar */
+        #strength-bar {
+            height: 10px;
+            width: 0;
+            background-color: green;
+            transition: width 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        /* Different strength levels */
+        .strength-weak {
+            background-color: red;
+        }
+
+        .strength-medium {
+            background-color: orange;
+        }
+
+        .strength-strong {
+            background-color: green;
+        }
+
+        /* Password Requirements */
+        #password-requirements {
+            font-size: 0.75em;
+        }
+
+        #password-requirements ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #password-requirements li {
+            font-size: 0.85em;
+            margin-bottom: 5px;
+        }
+
+        .valid {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+    </style>
+    <title>Register</title>
+</head>
+<body>
+    <form id="user-form" class="round-corners" action="/register" method="post">
+        <div class="form-item">
+            <label2>Register your account
+            </label2> </br> </br>
+            <label for="register-username">Username:</label>
+            <input id="register-username" class="form-input round-corners" type="text" name="username" required>
+        </div>
+        <div class="form-item">
+            <label for="register-email">Email:</label>
+            <input id="register-email" class="form-input round-corners" type="email" name="email" required>
+        </div>
+        <div class="form-item password-container">
+            <label for="register-password">Password:</label>
+            <div style="position: relative;">
+                <input id="register-password" class="form-input round-corners" type="password" name="password" required>
+                <span id="toggle-password-visibility" onclick="togglePasswordVisibility('register-password', 'toggle-password-visibility')" class="eye-icon1">
+                    👁️
+                    <script>
+                    // Toggle Password Visibility
+                    function togglePasswordVisibility(passwordFieldId, toggleIconId) {
+                        const passwordField = document.getElementById(passwordFieldId);
+                        const toggleIcon = document.getElementById(toggleIconId);
+            
+                        if (passwordField.type === 'password') {
+                            passwordField.type = 'text';
+                            toggleIcon.textContent = '👀'; // Closed-eye icon
+                        } else {
+                            passwordField.type = 'password';
+                            toggleIcon.textContent = '👁️'; // Open-eye icon
+                        }
+                    }
+                </script>
+                </span>
+                <div id="strength-bar"></div>
+                <p id="msg"></p>
+                <script src="{{ url_for('static', filename='pwchecker.js') }}"></script>
+    
+            </div>
+        </div>
+
+        
+        <style>
+            #password-requirements {
+                font-size: 0.75em; 
+            }
+            #password-requirements p {
+                font-size: 1.1em;
+                text-align: left; 
+            }
+        
+        
+            #password-requirements ul {
+                list-style-type: none;
+                padding: 0;
+            }
+        
+            #password-requirements li {
+                font-size: 0.85em;
+                margin-bottom: 5px; 
+            }
+        </style>
+        
+        <div class="password-requirements-container" class="form-item">
+            <p1>Password must be:</p1> </br>
+            <ul>
+                <li id="length" class="invalid">At least 8 characters long</li>
+                <li id="number" class="invalid">At least 1 number (0-9)</li>
+                <li id="lowercase" class="invalid">At least 1 lowercase letter (a-z)</li>
+                <li id="uppercase" class="invalid">At least 1 uppercase letter (A-Z)</li>
+                <li id="special" class="invalid">At least 1 special symbol (!@#$%^&*)</li>
+            </ul>
+        </div>
+
+        <div class="form-item password-container">
+            <label for="register-password-confirm">Confirm Password:</label>
+            <div style="position: relative;">
+                <input id="register-password-confirm" class="form-input round-corners" type="password" name="confirm-password" required>
+            
+
+                <span id="toggle-password-confirm-visibility" onclick="togglePasswordVisibility('register-password-confirm', 'toggle-password-confirm-visibility')" class="eye-icon2">
+                    👁️
+                    <script>
+                    // Toggle Password Visibility
+                    function togglePasswordVisibility(passwordFieldId, toggleIconId) {
+                        const passwordField = document.getElementById(passwordFieldId);
+                        const toggleIcon = document.getElementById(toggleIconId);
+            
+                        if (passwordField.type === 'password') {
+                            passwordField.type = 'text';
+                            toggleIcon.textContent = '👀'; // Closed-eye icon
+                        } else {
+                            passwordField.type = 'password';
+                            toggleIcon.textContent = '👁️'; // Open-eye icon
+                        }
+                    }
+                </script>
+                </span>
+
+
+
+
+
+            </div>
+        </div>
+
+        {% if error %}<p id="error-msg">{{ error }}</p>{% endif %}
+
+        <input id="form-submit" class="form-item round-corners" type="submit" value="Register">
+
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <div class="recaptcha-container">
+            <div class="g-recaptcha" data-sitekey="6Le2WGIqAAAAANSM_87bH9Hy9oEI83JM2lcEAaid"></div>
+        </div>
+        
+        <!-- Link to the external JS file for password validation -->
+        <script src="{{ url_for('static', filename='password-validation.js') }}"></script>
+        <script src="{{ url_for('static', filename='pwcheck.js') }}"></script>
+
+
+        <div id="switch-form">
+            <p>Already have an account? <a class="text-link" href="/login">Login</a></p>
+        </div>
+
+    </form>
+
+</body>
+</html>
